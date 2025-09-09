@@ -25,10 +25,10 @@ export default function PatientDashboard() {
 
   return (
     <div>
-      <h2>Doctors</h2>
+      <h2>Doctors - Their Specialization</h2>
       {doctors.map((d) => (
         <div key={d._id}>
-          {d.user.name} ({d.specialization})
+          {d.user.name} ({d.specialization ?? "Not Provided"})
           <button onClick={() => book(d._id)}>Book</button>
         </div>
       ))}

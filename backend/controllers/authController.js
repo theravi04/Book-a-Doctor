@@ -5,17 +5,23 @@ const jwt = require("jsonwebtoken");
 const generateToken = (id) => jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "7d" });
 
 exports.register = async (req, res) => {
-  const { name, email, password, role } = req.body;
+  const { name, email, password, role, specialization } = req.body;
   try {
     const user = await User.create({ name, email, password, role });
+
     if (role === "doctor") {
-      await Doctor.create({ user: user._id });
+      await Doctor.create({
+        user: user._id,
+        specialization: specialization || "General" // default if none provided
+      });
     }
+
     res.json({ token: generateToken(user._id), user });
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
 };
+
 
 exports.login = async (req, res) => {
   const { email, password } = req.body;
