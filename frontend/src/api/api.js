@@ -1,4 +1,5 @@
-const API_URL = "http://localhost:5000/api";
+const API_URL = "https://book-a-doctor-ptt5.onrender.com/api";
+// const API_URL = "http://localhost:5000/api";
 
 export const request = async (url, method = "GET", body = null, token = null) => {
   const headers = { "Content-Type": "application/json" };
